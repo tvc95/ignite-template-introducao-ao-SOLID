@@ -1,0 +1,126 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "My First API",
+        "version": "1.0.0",
+        "description": "API developed for the Ignite's Rocketseat challenge from Chapter 2",
+        "contact": {
+            "email": "thiago@pbhub.com.br"
+        },
+        "host": "localhost:3333",
+        "basePath": "/"
+    },
+    "paths": {
+        "/users": {
+            "post": {
+                "tags": ["User"],
+                "summary": "Create an user",
+                "description": "Create a new user",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "email": {
+                                        "type": "string"
+                                    }
+                                },
+                                "example": {
+                                    "name": "José da Silva",
+                                    "email": "josesilva@gmail.com"
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created"
+                    },
+                    "500": {
+                        "description": "User already exists"
+                    }
+                }
+            },
+            "get": {
+                "tags": ["User"],
+                "summary": "List all users",
+                "description": "If user is an admin, list all users",
+                "headers": {
+                    "schema": {
+                        "user_id": {
+                            "type": "string"
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "User doesn't have permission rights"
+                    },
+                    "500": {
+                        "description": "User doesn't exist"
+                    }
+                }
+            }
+        },
+        "/users/:user_id": {
+            "get": {
+                "tags": ["User"],
+                "summary": "Show user data",
+                "description": "Returns data from a specific user",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "description": "User ID (uuid)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "style": "simple"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "User doesn't exist"
+                    }
+                }
+            }
+        },
+        "/users/:user_id/admin": {
+            "patch": {
+                "tags": ["User"],
+                "summary": "Sets admin profile to user",
+                "description": "Makes an user an admin",
+                "parameters": [
+                    {
+                        "name": "user_id",
+                        "description": "User ID (uuid)",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        },
+                        "style": "simple"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "500": {
+                        "description": "User doesn't exist"
+                    }
+                }
+            }
+        }
+    }
+}
