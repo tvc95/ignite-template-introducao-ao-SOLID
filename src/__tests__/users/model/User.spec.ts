@@ -14,9 +14,9 @@ describe("User model", () => {
     });
 
     expect(user).toMatchObject({
-      name: "Atlas",
-      email: "atlas@fromspace.com",
       admin: false,
+      email: "atlas@fromspace.com",
+      name: "Atlas",
     });
     expect(validate(user.id)).toBe(true);
     expect(user.created_at).toBeInstanceOf(Date);
